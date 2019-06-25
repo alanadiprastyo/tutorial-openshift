@@ -1,4 +1,4 @@
-Login into
+Login into OpenShift
 ```
 oc login -u (user) https://(openshift-master-url)
 ```
