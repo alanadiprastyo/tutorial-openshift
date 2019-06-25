@@ -1,6 +1,7 @@
 Login into OpenShift
 ```
 oc login -u (user) https://(openshift-master-url):8443
+oc project imigrasi-(user)
 ```
 
 Deploy application using S2i source from git
