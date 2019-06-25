@@ -1,15 +1,15 @@
 Login into OpenShift
 ```
 oc login -u (user) https://(openshift-master-url):8443
-oc project imigrasi-(user)
+oc project (project-name)
 ```
 
 Deploy application using S2i source from git
 ```
-oc new-app jboss-webserver31-tomcat8-openshift:1.2~https://github.com/jboss-openshift/openshift-quickstarts.git#1.2 --context-dir=tomcat-websocket-chat --name=tomcat-websocket-chat --build-env=MAVEN_MIRROR_URL=http://nexus3-dev-infra.imigrasi.go.id/repository/maven-public
+oc new-app jboss-webserver31-tomcat8-openshift:1.2~https://github.com/jboss-openshift/openshift-quickstarts.git#1.2 --context-dir=tomcat-websocket-chat --name=tomcat-websocket-chat
 ```
 
-Deploy application using S2i source from local (build on server)
+Deploy application using S2i source from local (build on server)  
 Download source code from https://github.com/jboss-openshift/openshift-quickstarts/tree/1.2
 ```
 cd openshift-quickstart/tomcat-websocket-chat
@@ -28,13 +28,14 @@ Deploy application using Dockerfile git
 ```
 oc new-app https://github.com/jboss-dockerfiles/wildfly --name=dockerfile-wildfly --strategy=docker
 ```
-Deploy application using Dockerfile local
+Deploy application using Dockerfile local.  
+Download docker file from https://raw.githubusercontent.com/jboss-dockerfiles/wildfly/master/Dockerfile
 ```
 oc new-app . --name=dockerfile-wildfly-local --strategy=docker
 oc start-build dockerfile-wildfly-local --from-dir=. --follow
 ```
 
-Delete application
+Delete for each application
 ```
 oc delete dc/dockerfile-wildfly-local
 oc delete bc/dockerfile-wildfly-local
