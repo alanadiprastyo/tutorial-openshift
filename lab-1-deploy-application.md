@@ -19,10 +19,21 @@ mvn clean package
 oc start-build tomcat-websocket-chat-local-binary --from-file=target/websocket-chat.war --follow
 ```
 
+Deploy application using Dockerfile git
+```
+oc new-app https://github.com/jboss-dockerfiles/wildfly --name=dockerfile-wildfly --strategy=docker
+```
+Deploy application using Dockerfile local
+```
+oc new-app . --name=dockerfile-wildfly-local --strategy=docker
+oc start-build dockerfile-wildfly-local --from-dir=. --follow
+```
+
 Delete application
 ```
-oc delete dc/tomcat-websocket-chat-local-binary
-oc delete bc/tomcat-websocket-chat-local-binary
-oc delete svc/tomcat-websocket-chat-local-binary
-oc delete route/tomcat-websocket-chat-local-binary
+oc delete dc/dockerfile-wildfly-local
+oc delete bc/dockerfile-wildfly-local
+oc delete svc/dockerfile-wildfly-local
+oc delete route/dockerfile-wildfly-local
+oc delete is/dockerfile-wildfly-local
 ```
