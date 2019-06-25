@@ -3,12 +3,12 @@ oc login -u (user) https://(openshift-master-url)
 
 Deploy application using S2i source from git
 ```
-oc new-app jboss-webserver31-tomcat8-openshift:1.2~https://github.com/jboss-openshift/openshift-quickstarts.git#1.2 --context-dir=tomcat-websocket-chat --name=tomcat-websocket-chat
+oc new-app jboss-webserver31-tomcat8-openshift:1.2~https://github.com/jboss-openshift/openshift-quickstarts.git#1.2 --context-dir=tomcat-websocket-chat --name=tomcat-websocket-chat --build-env=MAVEN_MIRROR_URL=http://nexus3-dev-infra.imigrasi.go.id/repository/maven-public
 ```
 
 Deploy application using S2i source from local (build on server)
 ```
-oc new-app jboss-webserver31-tomcat8-openshift:1.2 --code=. --name=tomcat-websocket-chat-local
+oc new-app jboss-webserver31-tomcat8-openshift:1.2 --code=. --name=tomcat-websocket-chat-local --build-env=MAVEN_MIRROR_URL=http://nexus3-dev-infra.imigrasi.go.id/repository/maven-public
 oc start-build tomcat-websocket-chat-local --from-dir=. --follow
 ```
 
