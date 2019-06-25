@@ -1,5 +1,5 @@
 
-oc login -u <user> https://<openshift-master>
+oc login -u (user) https://(openshift-master-url)
 
 Deploy application using S2i source from git
 ```
