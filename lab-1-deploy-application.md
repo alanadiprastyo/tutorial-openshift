@@ -3,6 +3,12 @@ Login into OpenShift
 oc login -u (user) https://(openshift-master-url):8443
 oc project (project-name)
 ```
+Deploy application using Image docker from Docker Hub
+```
+oc tag --source=docker openshift/deployment-example:v2 deployment-example:latest
+oc new-app deployment-example
+```
+
 
 Deploy application using S2i source from git
 ```
