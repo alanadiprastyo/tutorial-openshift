@@ -8,7 +8,10 @@ Deploy application using Image docker from Docker Hub
 oc tag --source=docker openshift/deployment-example:v2 deployment-example:latest
 oc new-app deployment-example
 ```
-
+Deploy application NodeJs using S2i from git
+```
+oc new-app --name=hello-world https://github.com/alanadiprastyo/nodejs-ex.git
+```
 
 Deploy application using S2i source from git
 ```
