@@ -13,6 +13,16 @@ Deploy application NodeJs using S2i from git
 oc new-app --name=hello-world https://github.com/alanadiprastyo/nodejs-ex.git
 ```
 
+Deploy Jenkins for CI/CD
+```
+oc new-app jenkins-ephemeral
+```
+
+Create Sample Application for CI/CD
+```
+oc new-app -f https://raw.githubusercontent.com/alanadiprastyo/origin/master/examples/jenkins/application-template.json
+```
+
 Deploy application using S2i source from git
 ```
 oc new-app jboss-webserver31-tomcat8-openshift:1.2~https://github.com/jboss-openshift/openshift-quickstarts.git#1.2 --context-dir=tomcat-websocket-chat --name=tomcat-websocket-chat
