@@ -23,6 +23,34 @@ Create Sample Application for CI/CD
 oc new-app -f https://raw.githubusercontent.com/alanadiprastyo/origin/master/examples/jenkins/application-template.json
 ```
 
+Create Jenkins Pipeline use Openshift
+```
+oc create -f - <<EOF
+kind: "BuildConfig"
+apiVersion: "v1"
+metadata:
+  name: "pipeline"
+spec:
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile: |-
+        node() {
+          stage 'buildFrontEnd'
+          openshiftBuild(buildConfig: 'frontend', showBuildLogs: 'true')
+  
+          stage 'deployFrontEnd'
+          openshiftDeploy(deploymentConfig: 'frontend')
+  
+          stage "promoteToProd"
+          input message: 'Promote to production ?', ok: '\'Yes\''
+          openshiftTag(sourceStream: 'origin-nodejs-sample', sourceTag: 'latest', destinationStream: 'origin-nodejs-sample', destinationTag: 'prod')
+  
+          stage 'scaleUp'
+          openshiftScale(deploymentConfig: 'frontend-prod',replicaCount: '2')
+        }
+EOF
+```
+
 Deploy application using S2i source from git
 ```
 oc new-app jboss-webserver31-tomcat8-openshift:1.2~https://github.com/jboss-openshift/openshift-quickstarts.git#1.2 --context-dir=tomcat-websocket-chat --name=tomcat-websocket-chat
